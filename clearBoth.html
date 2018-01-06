@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>清除浮动</title>
+	<style>
+		.root {
+			background-color: deepskyblue;
+		}
+
+		.box {
+			float: left;
+			width: 200px;
+			height: 200px;
+			margin: 20px;
+			background: red;
+		}
+
+		.box:nth-child(2) {
+			background-color: green;
+		}
+
+		.box:nth-child(3) {
+			background-color: blue;
+		}
+
+		.right {
+			float: right;
+			width: 200px;
+			height: 200px;
+			margin: 20px;
+			background: orangered;
+		}
+
+
+		/* 清除浮动 */
+
+		/* 方法1和方法2是同一原理 通过clear属性清除浮动
+		clear语法：
+		clear：元素盒子的边不能和前面的浮动元素相邻
+		具体的实现原理是在添加clear属性的元素盒子前方添加一个看不见的框将定义clear属性的元素向下挤，直到元素不与前方的浮动元素相邻，
+		这样看起来包含框就把浮动框给包含了，实际上浮动框脱离文本流的性质没变，它们依然是“浮”在上面的
+
+		clear : none | left | right | both
+		取值：
+		none : 默认值。允许两边都可以有浮动对象
+		left : 不允许左边有浮动对象
+		right : 不允许右边有浮动对象
+		both : 不允许有浮动对象
+		*/
+
+		/* 方法1 空标签 */
+		/*.clear {
+			clear: both;
+		}*/
+
+		/* 方法2 伪元素 */
+		/* .clearfix:after {
+			content: "";
+			display: block;
+			height: 0;
+			font-size: 0px;
+			line-height: 0;
+			visibility: hidden;
+			clear: both;
+		} 
+*/
+		/* 方法3 BFC */
+  	/* Block Famatting Content  块级格式化上下文
+		特点：
+			1.BFC容器是一个隔离的容器，和其他元素互不干扰；所以我们可以用触发两个元素的BFC来解决垂直边距折叠问题。
+			2.计算BFC的高度时，浮动元素也参与计算
+		BFC的触发方式：
+
+		可以给父元素添加以下属性来触发BFC：
+			float 为 left | right
+			overflow 为 hidden | auto | scorll
+			display 为 table-cell | table-caption | inline-block | flex | inline-flex
+			position 为 absolute | fixed
+		*/
+
+		 .root {
+			overflow: hidden
+		} 
+	</style>
+</head>
+
+<body>
+	<div class="root clearfix">
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<div class="clear"></div>
+		<div class="box right"></div>
+		<!-- <div class="clear"></div> -->
+	</div>
+</body>
+
+</html>
